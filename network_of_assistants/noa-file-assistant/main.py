@@ -18,6 +18,7 @@ from llama_index.llms.azure_openai import AzureOpenAI
 from llama_index.llms.openai_like import OpenAILike
 
 from llama_index.embeddings.openai import OpenAIEmbedding
+from llama_index.embeddings.ollama import OllamaEmbedding
 from llama_index.core import Settings
 
 from slim import SLIM
@@ -117,8 +118,13 @@ async def amain(args):
             api_key=args.rag_api_key,
             api_base=args.rag_base_url,
         )
+    elif args.rag_type == "ollama":
+        embed_model = OllamaEmbedding(
+            model=args.rag_model,
+            base_url=args.rag_base_url,
+        )
     else:
-        raise Exception(f"RAG type {args.rag_type} is not supported. Only supported type is openai.")
+        raise Exception(f"RAG type {args.rag_type} is not supported. Only supported type is openai or ollama.")
 
     Settings.embed_model = embed_model
 
