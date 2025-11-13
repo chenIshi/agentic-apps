@@ -107,6 +107,7 @@ async def amain(args):
     elif args.llm_type == "ollama":
         kwargs = {
             "model": args.llm_model,
+            "base_url": args.llm_base_url,
         }
         llm = Ollama(**kwargs)
     else:
